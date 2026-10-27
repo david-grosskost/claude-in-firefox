@@ -19,7 +19,7 @@ Il faut **Node.js ≥ 18** et **Firefox ≥ 140**.
 Dans Claude Code :
 
 ```
-/plugin marketplace add <votre-compte>/claude-in-firefox
+/plugin marketplace add david-grosskost/claude-in-firefox
 /plugin install firefox-pilot@firefox-pilot
 ```
 
@@ -27,7 +27,7 @@ Redémarrez ensuite Claude Code. Les outils apparaissent sous la forme `mcp__plu
 
 ### 2. L'extension Firefox
 
-Téléchargez le fichier `.xpi` de la [dernière release](../../releases/latest) et ouvrez-le avec Firefox (ou glissez-le dans une fenêtre Firefox). Ce fichier est signé par Mozilla, donc l'extension reste installée après un redémarrage.
+Téléchargez le fichier `.xpi` de la [dernière release](https://github.com/david-grosskost/claude-in-firefox/releases/latest) et ouvrez-le avec Firefox (ou glissez-le dans une fenêtre Firefox). Ce fichier est signé par Mozilla, donc l'extension reste installée après un redémarrage.
 
 Quand l'extension est connectée à Claude Code, son icône affiche un badge vert avec le nombre de sessions. Un clic sur l'icône montre l'état de la connexion.
 
@@ -99,3 +99,7 @@ Pour charger l'extension sans la signer : ouvrez `about:debugging#/runtime/this-
 ### Configuration
 
 `CLAUDE_IN_FIREFOX_PORT` change le premier port écouté (8765 par défaut). Si vous le modifiez, changez aussi `BASE_PORT` dans `extension/background.js`.
+
+## Licence
+
+[MIT](LICENSE)

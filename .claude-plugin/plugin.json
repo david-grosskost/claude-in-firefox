@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "Let Claude Code drive your real Firefox browser: tabs, page reading, clicks, typing, forms, screenshots, console and network logs. Requires the companion Firefox extension (extension/ folder).",
   "author": { "name": "David Grosskost" },
+  "license": "MIT",
+  "homepage": "https://github.com/david-grosskost/claude-in-firefox",
+  "repository": "https://github.com/david-grosskost/claude-in-firefox",
   "keywords": ["firefox", "browser", "automation", "mcp"],
   "mcpServers": {
     "firefox": {
