@@ -1,0 +1,55 @@
+# On a version tag (v0.1.0, …): check the bundled server is up to date, have Mozilla sign the
+# extension (unlisted channel: signed but not listed on addons.mozilla.org), and attach the
+# signed .xpi to a GitHub release.
+#
+# Required repository secrets (https://addons.mozilla.org/developers/addon/api/key/):
+#   AMO_JWT_ISSUER, AMO_JWT_SECRET
+# The tag must match the "version" in extension/manifest.json (Mozilla refuses to sign a version twice).
+
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check versions match the tag
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          manifest=$(node -p "require('./extension/manifest.json').version")
+          plugin=$(node -p "require('./.claude-plugin/plugin.json').version")
+          echo "tag=$tag manifest=$manifest plugin=$plugin"
+          test "$tag" = "$manifest" && test "$tag" = "$plugin"
+
+      - name: Check server/dist is up to date
+        run: |
+          npm ci
+          npm run build
+          git diff --exit-code -- server/dist || (echo "Run 'npm run build' and commit server/dist" && exit 1)
+
+      - name: Sign the extension
+        run: >
+          npx --yes web-ext sign
+          --source-dir extension
+          --artifacts-dir web-ext-artifacts
+          --channel unlisted
+          --api-key "${{ secrets.AMO_JWT_ISSUER }}"
+          --api-secret "${{ secrets.AMO_JWT_SECRET }}"
+
+      - name: Publish the release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: web-ext-artifacts/*.xpi
+          generate_release_notes: true

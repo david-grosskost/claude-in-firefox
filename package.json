@@ -1,0 +1,25 @@
+{
+  "name": "claude-in-firefox",
+  "version": "0.1.0",
+  "description": "Let Claude Code drive your real Firefox browser through an MCP server + WebExtension",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node server/dist/index.js",
+    "ext:run": "npx --yes web-ext run -s extension",
+    "ext:lint": "npx --yes web-ext lint -s extension",
+    "ext:build": "npx --yes web-ext build -s extension -a dist --overwrite-dest",
+    "build": "node scripts/build.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "ws": "^8.22.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

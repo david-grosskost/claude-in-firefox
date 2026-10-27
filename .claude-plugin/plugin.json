@@ -1,0 +1,13 @@
+{
+  "name": "firefox-pilot",
+  "version": "0.1.0",
+  "description": "Let Claude Code drive your real Firefox browser: tabs, page reading, clicks, typing, forms, screenshots, console and network logs. Requires the companion Firefox extension (extension/ folder).",
+  "author": { "name": "David Grosskost" },
+  "keywords": ["firefox", "browser", "automation", "mcp"],
+  "mcpServers": {
+    "firefox": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/server/dist/index.js"]
+    }
+  }
+}
